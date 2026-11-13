@@ -513,13 +513,31 @@ dialog.lb[open]{animation:pop .45s var(--ease)}
 }
 @media (max-width:640px){
   body{font-size:16px}
-  .hero-bg img{object-position:50% 10%}
-  .hero-bg::after{background:linear-gradient(0deg,rgba(7,8,10,.97) 0%,rgba(7,8,10,.86) 46%,rgba(7,8,10,.15) 76%,rgba(7,8,10,.45) 100%)}
-  .hero-main{align-self:end}
-  .hero h1{font-size:clamp(58px,19vw,110px)}
+  /* phone hero: framed photo on top, clean text below */
+  .hero{min-height:0}
+  .hero-bg{top:128px;left:16px;right:16px;bottom:auto;height:44svh;border-radius:24px;border:1px solid rgba(243,238,230,.12)}
+  .hero-bg img{object-position:50% 12%}
+  .hero-bg::after{background:linear-gradient(0deg,rgba(7,8,10,.45) 0%,transparent 30%)}
+  .hero-bg .tint{display:none}
+  .hero>.wrap{min-height:0;grid-template-rows:auto auto;padding-top:90px;padding-bottom:96px}
+  .hero-main{align-self:start;margin-top:calc(44svh + 28px)}
+  .hero-tag{font-size:11.5px;padding:6px 12px 6px 6px;gap:10px}
+  .hero h1{margin-top:18px;font-size:clamp(50px,16vw,82px)}
+  .hero-lede{margin-top:18px;font-size:16.5px;line-height:1.55}
+  .hero-actions{margin-top:24px;gap:10px}
   .hero-actions .btn{flex:1 1 100%;justify-content:center;padding:0 16px}
-  .scroll-cue{display:none}
-  .hero>.wrap{padding-bottom:76px}
+  .scroll-cue,.hero-foot{display:none}
+  /* phone chapters: photo on top, words below (no text on faces) */
+  .chap img{height:58%}
+  .chap::after{top:0;bottom:auto;height:58%;background:linear-gradient(0deg,#07080a 0%,rgba(7,8,10,0) 28%)!important}
+  .chap .txt{bottom:auto;top:calc(58% + 22px)}
+  .chap img{object-position:50% 2%!important}
+  .story-dots{display:none!important}
+  /* phone trophies: caption under the photo */
+  .tro-photo{display:block;min-height:0;color:var(--ink)}
+  .tro-photo img{position:relative;height:440px}
+  .tro-photo::after{display:none}
+  .tro-photo .in{padding:22px}
   .hero-actions .hint,.now-strip,.hero-meta span:nth-child(2){display:none}
   .stats{grid-template-columns:1fr}
   .stat{border-right:0;margin-right:0;border-bottom:1px solid var(--line);padding-bottom:22px}
@@ -532,9 +550,8 @@ dialog.lb[open]{animation:pop .45s var(--ease)}
   .avatar{width:52px;height:52px}
   .day{padding:5px;font-size:9px}
   .chap::after{background:linear-gradient(0deg,rgba(7,8,10,.95) 0%,rgba(7,8,10,.6) 45%,rgba(7,8,10,.1) 75%)}
-  .chap h2{font-size:clamp(60px,20vw,110px)}
-  .chap p{font-size:19px}
-  .tro-photo{min-height:520px}
+  .chap h2{font-size:clamp(56px,17vw,96px);margin-top:12px}
+  .chap p{font-size:17px;margin-top:14px;line-height:1.45}
   .edu{grid-template-columns:1fr auto;gap:8px 16px}
   .edu-y{grid-column:1 / -1}
   .contact-row .btn{width:100%;justify-content:center}
@@ -1221,7 +1238,7 @@ bootTl.to('#bfill', {clipPath:'inset(0 0% 0 0)', duration:1.5, ease:'power2.inOu
 boot.addEventListener('click', () => bootTl.progress(1));
 
 gsap.to('.hero-bg img', {yPercent:12, ease:'none', scrollTrigger:{trigger:'.hero', start:'top top', end:'bottom top', scrub:true}});
-gsap.to('.hero-main', {yPercent:-20, opacity:.15, ease:'none', scrollTrigger:{trigger:'.hero', start:'top top', end:'bottom top', scrub:true}});
+if (innerWidth > 640) gsap.to('.hero-main', {yPercent:-20, opacity:.15, ease:'none', scrollTrigger:{trigger:'.hero', start:'top top', end:'bottom top', scrub:true}});
 
 /* nav + progress */
 const nav = $('.nav'); let lastY = 0;
